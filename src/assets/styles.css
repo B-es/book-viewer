@@ -1,0 +1,510 @@
+/* ============================================
+   ТЁМНАЯ ТЕМА · КРАСНЫЕ АКЦЕНТЫ
+   ============================================ */
+
+:root {
+    /* Палитра */
+    --bg-primary: #0b0d12;
+    --bg-secondary: #12151c;
+    --bg-elevated: rgba(25, 29, 40, 0.6);
+    --bg-glass: rgba(30, 35, 50, 0.45);
+
+    --border-subtle: rgba(255, 255, 255, 0.08);
+    --border-strong: rgba(255, 255, 255, 0.15);
+
+    --text-primary: #e6e8ef;
+    --text-secondary: #9ca3af;
+    --text-muted: #6b7280;
+
+    --accent: #dc2626;
+    --accent-hover: #ef4444;
+    --accent-gradient: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+    --accent-glow: rgba(220, 38, 38, 0.4);
+
+    --success: #10b981;
+    --success-bg: rgba(16, 185, 129, 0.12);
+    --danger: #ef4444;
+    --danger-bg: rgba(239, 68, 68, 0.12);
+    --warning: #f59e0b;
+
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
+    --shadow-glow: 0 0 24px var(--accent-glow);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family:
+        "Inter",
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+    background: var(--bg-primary);
+    background-image:
+        radial-gradient(
+            circle at 20% 10%,
+            rgba(220, 38, 38, 0.12) 0%,
+            transparent 40%
+        ),
+        radial-gradient(
+            circle at 80% 80%,
+            rgba(185, 28, 28, 0.08) 0%,
+            transparent 40%
+        );
+    color: var(--text-primary);
+    min-height: 100vh;
+    line-height: 1.5;
+}
+
+/* ============================================
+   APP.VUE
+   ============================================ */
+
+.app-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 24px;
+}
+
+.app-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.app-header h1 {
+    font-size: 2.25rem;
+    margin: 0 0 12px;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    letter-spacing: -0.02em;
+}
+
+.app-header p {
+    color: var(--text-secondary);
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+.search-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 24px;
+    padding: 24px;
+    background: var(--bg-glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+}
+
+.search-input {
+    width: 100%;
+    padding: 14px 18px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-size: 1rem;
+    transition: all 0.2s;
+}
+
+.search-input::placeholder {
+    color: var(--text-muted);
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15);
+}
+
+.search-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.search-btn,
+.test-btn {
+    width: 100%;
+    padding: 14px 28px;
+    background: var(--accent-gradient);
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.search-btn:hover:not(:disabled),
+.test-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-glow);
+}
+
+.search-btn:disabled,
+.test-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.status-message {
+    padding: 16px 20px;
+    border-radius: var(--radius-md);
+    margin-bottom: 24px;
+    font-weight: 500;
+    border: 1px solid var(--border-subtle);
+    background: var(--bg-glass);
+}
+
+.status-message.loading {
+    color: var(--accent-hover);
+    border-color: var(--accent);
+}
+
+.status-message.error {
+    color: var(--danger);
+    background: var(--danger-bg);
+    border-color: rgba(239, 68, 68, 0.3);
+}
+
+.test-result.success {
+    color: var(--success);
+    background: var(--success-bg);
+    border-color: rgba(16, 185, 129, 0.3);
+}
+
+.test-result.fail {
+    color: var(--danger);
+    background: var(--danger-bg);
+    border-color: rgba(239, 68, 68, 0.3);
+}
+
+.results-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 18px;
+    margin-bottom: 16px;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    border-left: 4px solid var(--accent);
+    background: var(--bg-glass);
+    border-radius: var(--radius-sm);
+}
+
+.no-results {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-muted);
+    background: var(--bg-glass);
+    border: 1px dashed var(--border-subtle);
+    border-radius: var(--radius-lg);
+}
+
+.book-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* ============================================
+   REQUEST LOG
+   ============================================ */
+
+.log-container {
+    margin: 24px 0;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--bg-glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.log-toggle {
+    width: 100%;
+    padding: 16px 20px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--text-primary);
+    transition: background 0.2s;
+}
+
+.log-toggle:hover {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.log-toggle span:first-child {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.arrow {
+    transition: transform 0.3s ease;
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.rotated {
+    transform: rotate(180deg);
+}
+
+.log-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    font-family: "JetBrains Mono", "Fira Code", monospace;
+}
+
+.log-table th,
+.log-table td {
+    padding: 12px 20px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.log-table th {
+    background: rgba(0, 0, 0, 0.25);
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+}
+
+.log-table td {
+    color: var(--text-primary);
+}
+
+.url-cell {
+    max-width: 400px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: var(--accent-hover);
+}
+
+.status-2xx td {
+    color: var(--success);
+}
+
+.status-4xx td,
+.status-5xx td {
+    color: var(--danger);
+}
+
+.log-table tr:last-child td {
+    border-bottom: none;
+}
+
+.log-table tr:hover td {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+/* Анимация сворачивания */
+.fade-slide-enter-active,
+.fade-slide-leave-active {
+    transition: all 0.3s ease;
+    max-height: 600px;
+    opacity: 1;
+}
+
+.fade-slide-enter-from,
+.fade-slide-leave-to {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+}
+
+/* ============================================
+   BOOK CARD
+   ============================================ */
+
+.book-card {
+    display: flex;
+    gap: 24px;
+    padding: 20px;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    background: var(--bg-glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: all 0.25s ease;
+}
+
+.book-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--border-strong);
+    box-shadow:
+        var(--shadow-md),
+        0 0 0 1px rgba(220, 38, 38, 0.2);
+}
+
+.book-cover {
+    flex-shrink: 0;
+    width: 110px;
+    height: 160px;
+    background: linear-gradient(
+        135deg,
+        rgba(220, 38, 38, 0.2),
+        rgba(185, 28, 28, 0.2)
+    );
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border: 1px solid var(--border-subtle);
+}
+
+.book-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.no-cover {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    padding: 10px;
+}
+
+.book-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+}
+
+.book-title {
+    margin: 0;
+    font-size: 1.2rem;
+    color: var(--text-primary);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+}
+
+.series {
+    margin: 0;
+    color: var(--accent-hover);
+    font-style: italic;
+    font-size: 0.875rem;
+}
+
+.authors {
+    margin: 0;
+    color: var(--text-secondary);
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.meta,
+.languages,
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.year,
+.editions {
+    color: var(--text-secondary);
+}
+
+.lang-badge {
+    background: rgba(220, 38, 38, 0.15);
+    color: var(--accent-hover);
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    border: 1px solid rgba(220, 38, 38, 0.25);
+}
+
+.lang-more {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+}
+
+.ebook-badge {
+    background: var(--success-bg);
+    color: var(--success);
+    padding: 5px 12px;
+    border-radius: var(--radius-sm);
+    font-weight: 500;
+    font-size: 0.8rem;
+    border: 1px solid rgba(16, 185, 129, 0.25);
+}
+
+.btn-archive {
+    margin-left: auto;
+    padding: 10px 18px;
+    background: var(--accent-gradient);
+    color: white;
+    text-decoration: none;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+    border: 2px solid transparent;
+}
+
+.btn-archive:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-glow);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* ============================================
+   АДАПТИВ
+   ============================================ */
+
+@media (max-width: 640px) {
+    .book-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .book-info {
+        align-items: center;
+    }
+
+    .btn-archive {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .url-cell {
+        max-width: 180px;
+    }
+}
