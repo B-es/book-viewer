@@ -504,6 +504,15 @@ body {
         width: 100%;
     }
 
+    .search-actions {
+        flex-direction: column;
+    }
+
+    .search-btn,
+    .test-btn {
+        width: 100%;
+    }
+
     .url-cell {
         max-width: 180px;
     }
